@@ -39,22 +39,13 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
           },
         ]}
       >
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>Kelime Oyunu</Text>
-        </View>
         <Text style={styles.title}>Adam{'\n'}Asmaca</Text>
-        <Text style={styles.subtitle}>
-          Türkçe karakterleri eksiksiz destekleyen, sıcak görünümlü ve akıcı bir kelime meydan okuması.
-        </Text>
-        <View style={styles.preview}>
-          <View style={styles.previewCard}>
-            <Text style={styles.previewLabel}>Odak</Text>
-            <Text style={styles.previewValue}>Dikkat, tahmin ve ritim</Text>
-          </View>
-          <View style={styles.previewCard}>
-            <Text style={styles.previewLabel}>Alfabe</Text>
-            <Text style={styles.previewValue}>Ç Ğ I İ Ö Ş Ü</Text>
-          </View>
+        <Text style={styles.subtitle}>Kelimeyi tahmin et, yanlış seçimlerden kaçın ve oyunu kazanmaya çalış.</Text>
+        <View style={styles.identityCard}>
+          <Text style={styles.identityLabel}>Hazırlayan</Text>
+          <Text style={styles.identityValue}>Emre Keleş</Text>
+          <Text style={styles.identityMeta}>AMP 12/A</Text>
+          <Text style={styles.identityMeta}>1269</Text>
         </View>
         <Pressable style={({ pressed }) => [styles.button, pressed ? styles.buttonPressed : null]} onPress={() => navigation.navigate('Game')}>
           <Text style={styles.buttonText}>Oyunu Başlat</Text>
@@ -99,20 +90,6 @@ const styles = StyleSheet.create({
     shadowRadius: 28,
     elevation: 10,
   },
-  badge: {
-    alignSelf: 'flex-start',
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.xs,
-    borderRadius: radii.pill,
-    backgroundColor: palette.accentSoft,
-    marginBottom: spacing.lg,
-  },
-  badgeText: {
-    fontFamily: typography.bold,
-    fontSize: 13,
-    color: palette.accentDeep,
-    letterSpacing: 0.4,
-  },
   title: {
     fontFamily: typography.bold,
     fontSize: 46,
@@ -122,31 +99,36 @@ const styles = StyleSheet.create({
   subtitle: {
     fontFamily: typography.regular,
     fontSize: 17,
-    lineHeight: 26,
+    lineHeight: 27,
     color: palette.inkMuted,
     marginTop: spacing.md,
   },
-  preview: {
+  identityCard: {
     marginTop: spacing.xl,
-    rowGap: spacing.sm,
-  },
-  previewCard: {
     backgroundColor: palette.surface,
     borderRadius: radii.md,
-    padding: spacing.md,
+    padding: spacing.lg,
     borderWidth: 1,
     borderColor: palette.line,
   },
-  previewLabel: {
+  identityLabel: {
     fontFamily: typography.bold,
     fontSize: 13,
     color: palette.accentDeep,
-    marginBottom: 4,
+    letterSpacing: 0.4,
+    marginBottom: spacing.xs,
   },
-  previewValue: {
-    fontFamily: typography.regular,
-    fontSize: 15,
+  identityValue: {
+    fontFamily: typography.bold,
+    fontSize: 26,
     color: palette.ink,
+    marginBottom: spacing.sm,
+  },
+  identityMeta: {
+    fontFamily: typography.regular,
+    fontSize: 16,
+    color: palette.inkMuted,
+    marginTop: 2,
   },
   button: {
     marginTop: spacing.xl,
