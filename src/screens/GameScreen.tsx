@@ -131,12 +131,7 @@ export function GameScreen({ navigation }: GameScreenProps) {
               <Text style={styles.resultButtonText}>Bir Tur Daha</Text>
             </Pressable>
           </Animated.View>
-        ) : (
-          <View style={styles.statusCard}>
-            <Text style={styles.statusTitle}>Sıradaki hamleni seç</Text>
-            <Text style={styles.statusBody}>Türkçe alfabenin tüm özel harfleri aktif. Aynı harf ikinci kez işlenmez.</Text>
-          </View>
-        )}
+        ) : null}
 
         <View style={styles.keyboardCard}>
           <Text style={styles.keyboardTitle}>Harfler</Text>
@@ -269,26 +264,6 @@ const styles = StyleSheet.create({
     borderColor: palette.line,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.lg,
-  },
-  statusCard: {
-    marginTop: spacing.lg,
-    backgroundColor: palette.surface,
-    borderRadius: radii.md,
-    borderWidth: 1,
-    borderColor: palette.line,
-    padding: spacing.lg,
-  },
-  statusTitle: {
-    fontFamily: typography.bold,
-    fontSize: 18,
-    color: palette.ink,
-    marginBottom: 6,
-  },
-  statusBody: {
-    fontFamily: typography.regular,
-    fontSize: 15,
-    lineHeight: 24,
-    color: palette.inkMuted,
   },
   resultCard: {
     marginTop: spacing.lg,
