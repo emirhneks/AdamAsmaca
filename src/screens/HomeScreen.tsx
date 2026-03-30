@@ -1,0 +1,173 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useEffect, useRef } from 'react';
+import { Animated, Pressable, StyleSheet, Text, View } from 'react-native';
+import { RootStackParamList } from '../../App';
+import { palette, radii, spacing, typography } from '../theme';
+
+type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+export function HomeScreen({ navigation }: HomeScreenProps) {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const slideAnim = useRef(new Animated.Value(28)).current;
+
+  useEffect(() => {
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 650,
+        useNativeDriver: true,
+      }),
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 650,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, [fadeAnim, slideAnim]);
+
+  return (
+    <LinearGradient colors={['#FFF7EC', '#FFE6D4', '#FFFDF7']} style={styles.screen}>
+      <View style={styles.glowTop} />
+      <View style={styles.glowBottom} />
+      <Animated.View
+        style={[
+          styles.card,
+          {
+            opacity: fadeAnim,
+            transform: [{ translateY: slideAnim }],
+          },
+        ]}
+      >
+        <View style={styles.badge}>
+          <Text style={styles.badgeText}>Kelime Oyunu</Text>
+        </View>
+        <Text style={styles.title}>Adam{'\n'}Asmaca</Text>
+        <Text style={styles.subtitle}>
+          Türkçe karakterleri eksiksiz destekleyen, sıcak görünümlü ve akıcı bir kelime meydan okuması.
+        </Text>
+        <View style={styles.preview}>
+          <View style={styles.previewCard}>
+            <Text style={styles.previewLabel}>Odak</Text>
+            <Text style={styles.previewValue}>Dikkat, tahmin ve ritim</Text>
+          </View>
+          <View style={styles.previewCard}>
+            <Text style={styles.previewLabel}>Alfabe</Text>
+            <Text style={styles.previewValue}>Ç Ğ I İ Ö Ş Ü</Text>
+          </View>
+        </View>
+        <Pressable style={({ pressed }) => [styles.button, pressed ? styles.buttonPressed : null]} onPress={() => navigation.navigate('Game')}>
+          <Text style={styles.buttonText}>Oyunu Başlat</Text>
+        </Pressable>
+      </Animated.View>
+    </LinearGradient>
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.xl,
+    justifyContent: 'center',
+  },
+  glowTop: {
+    position: 'absolute',
+    top: -20,
+    right: -10,
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+    backgroundColor: 'rgba(242, 107, 58, 0.16)',
+  },
+  glowBottom: {
+    position: 'absolute',
+    bottom: 70,
+    left: -30,
+    width: 220,
+    height: 220,
+    borderRadius: 110,
+    backgroundColor: 'rgba(245, 192, 108, 0.18)',
+  },
+  card: {
+    backgroundColor: 'rgba(255, 253, 248, 0.92)',
+    borderRadius: radii.lg,
+    padding: spacing.xl,
+    shadowColor: palette.shadow,
+    shadowOffset: { width: 0, height: 16 },
+    shadowOpacity: 1,
+    shadowRadius: 28,
+    elevation: 10,
+  },
+  badge: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+    borderRadius: radii.pill,
+    backgroundColor: palette.accentSoft,
+    marginBottom: spacing.lg,
+  },
+  badgeText: {
+    fontFamily: typography.bold,
+    fontSize: 13,
+    color: palette.accentDeep,
+    letterSpacing: 0.4,
+  },
+  title: {
+    fontFamily: typography.bold,
+    fontSize: 46,
+    lineHeight: 48,
+    color: palette.ink,
+  },
+  subtitle: {
+    fontFamily: typography.regular,
+    fontSize: 17,
+    lineHeight: 26,
+    color: palette.inkMuted,
+    marginTop: spacing.md,
+  },
+  preview: {
+    marginTop: spacing.xl,
+    rowGap: spacing.sm,
+  },
+  previewCard: {
+    backgroundColor: palette.surface,
+    borderRadius: radii.md,
+    padding: spacing.md,
+    borderWidth: 1,
+    borderColor: palette.line,
+  },
+  previewLabel: {
+    fontFamily: typography.bold,
+    fontSize: 13,
+    color: palette.accentDeep,
+    marginBottom: 4,
+  },
+  previewValue: {
+    fontFamily: typography.regular,
+    fontSize: 15,
+    color: palette.ink,
+  },
+  button: {
+    marginTop: spacing.xl,
+    backgroundColor: palette.accent,
+    borderRadius: radii.pill,
+    paddingVertical: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: 'rgba(242, 107, 58, 0.35)',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 1,
+    shadowRadius: 18,
+    elevation: 8,
+  },
+  buttonPressed: {
+    transform: [{ scale: 0.98 }],
+    backgroundColor: palette.accentDeep,
+  },
+  buttonText: {
+    fontFamily: typography.bold,
+    fontSize: 18,
+    color: '#FFFDF8',
+  },
+});
